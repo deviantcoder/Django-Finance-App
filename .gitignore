@@ -1,0 +1,8 @@
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
+.idea/
+venv/
+__pycache__/
+*.pyc
