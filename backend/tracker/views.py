@@ -13,11 +13,14 @@ def index(request):
 def transactions_list(request):
     transactions_filter = TransactionFilter(
         request.GET,
-        queryset=Transaction.objects.filter(user=request.user)
+        queryset=Transaction.objects.filter(user=request.user).select_related('category')
     )
 
     context = {
         'filter': transactions_filter,
     }
+
+    if request.htmx:
+        return render(request, 'tracker/partials/transactions-container.html', context)
 
     return render(request, 'tracker/transactions-list.html', context)

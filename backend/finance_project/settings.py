@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'django_filters',
+    'django_htmx',
     
     # project apps
     "tracker",
@@ -53,6 +54,7 @@ MIDDLEWARE = [
 
     # external middleware
     'allauth.account.middleware.AccountMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = "finance_project.urls"
