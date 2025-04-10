@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from .managers import TransactionQuerySet
+
 
 class User(AbstractUser):
     pass
@@ -29,6 +31,8 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     date = models.DateField()
+
+    objects = TransactionQuerySet.as_manager()
 
     class Meta:
         ordering = ('-date',)
