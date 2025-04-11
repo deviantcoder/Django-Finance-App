@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
     
     # external apps
     "django_extensions",
@@ -36,8 +37,6 @@ INSTALLED_APPS = [
     
     # project apps
     "tracker",
-    
-    
 ]
 
 SITE_ID = 1

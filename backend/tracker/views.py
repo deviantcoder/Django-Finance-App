@@ -16,8 +16,14 @@ def transactions_list(request):
         queryset=Transaction.objects.filter(user=request.user).select_related('category')
     )
 
+    total_income = transactions_filter.qs.get_total_income()
+    total_expenses = transactions_filter.qs.get_total_expenses()
+
     context = {
         'filter': transactions_filter,
+        'total_income': total_income,
+        'total_expenses': total_expenses,
+        'net_income': total_income - total_expenses,
     }
 
     if request.htmx:
