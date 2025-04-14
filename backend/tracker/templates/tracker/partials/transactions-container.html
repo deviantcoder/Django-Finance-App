@@ -56,13 +56,24 @@
     </div>
     <div class="col-span-1">
         <form hx-get="{% url 'transactions-list' %}" hx-target="#transaction-container" hx-swap="outerHTML">
-            <div class="mb-2 form-control">
+            <div class="form-control">
                 {{ filter.form.transaction_type|add_label_class:"label text-white mb-2" }}
                 {% render_field filter.form.transaction_type class="select bg-gray-50 text-gray-900 mb-2" %}
-                <button class="btn btn-outline btn-accent">
-                    Filter
-                </button>
             </div>
+            <div class="form-control">
+                {{ filter.form.start_date|add_label_class:"label text-white mb-2" }}
+                {% render_field filter.form.start_date class="input bg-gray-50 text-gray-900 mb-2" %}
+            </div>
+            <div class="form-control">
+                {{ filter.form.end_date|add_label_class:"label text-white mb-2" }}
+                {% render_field filter.form.end_date class="input bg-gray-50 text-gray-900 mb-2" %}
+            </div>
+            <div class="mb-4 form-control">
+                {% render_field filter.form.category class="text-green-500 border-gray-300 rounded focus:ring-green-500" %}
+            </div>
+            <button class="btn btn-outline btn-accent">
+                Filter
+            </button>
         </form>
     </div>
 </div>
