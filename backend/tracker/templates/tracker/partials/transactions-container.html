@@ -54,7 +54,11 @@
                             <td>{{ transaction.date }}</td>
                             <td>{{ transaction.category }}</td>
                             <td>{{ transaction.type }}</td>
-                            <td>{{ transaction.amount }}</td>
+                            {% if transaction.type == 'income' %}
+                                <td class="text-green-500">+ {{ transaction.amount }}</td>
+                            {% else %}
+                                <td class="text-red-500">- {{ transaction.amount }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

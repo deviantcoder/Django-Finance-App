@@ -5,6 +5,8 @@ from .models import Transaction
 from .filters import TransactionFilter
 from .forms import TransactionForm
 
+from django_htmx.http import retarget
+
 
 def index(request):
     return render(request, 'tracker/index.html')
@@ -36,10 +38,8 @@ def transactions_list(request):
 @login_required
 def create_transaction(request):
     if request.htmx:
-        print('>>> POST REQUEST INCOMING <<<')
         form = TransactionForm(request.POST)
         if form.is_valid():
-            print('>>> POST REQUEST INCOMING <<<')
             transaction = form.save(commit=False)
             transaction.user = request.user
             transaction.save()
@@ -47,6 +47,12 @@ def create_transaction(request):
             context = {'message': 'Transaction was added successfully'}
 
             return render(request, 'tracker/partials/transaction-success.html', context)
+        else:
+            context = {
+                'form': form,
+            }
+            response = render(request, 'tracker/partials/create-transaction.html', context)
+            return retarget(response, '#transaction-block')
 
     context = {
         'form': TransactionForm(),
