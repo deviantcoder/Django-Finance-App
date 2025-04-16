@@ -4,7 +4,7 @@
 <div class="flex flex-col-reverse md:grid md:grid-cols-4 md:gap-4" id="transaction-container">
     <div class="col-span-3">
         <div class="my-4">
-            <h1 class="mt-4 mb-2 prose prose-2xl text-white">
+            <h1 class="mt-4 mb-6 prose prose-2xl text-white">
                 Totals
             </h1>
             <table class="table">
@@ -24,9 +24,20 @@
                 </tbody>
             </table>
         </div>
-        <h1 class="mt-8 mb-2 prose prose-2xl text-white">
-            Transactions
-        </h1>
+        <div class="flex justify-between items-center mt-6 mb-6">
+            <h1 class="prose prose-2xl text-white">
+                Transactions
+            </h1>
+            <a hx-get="{% url 'create-transaction' %}"
+                hx-push-url="true"
+                hx-target="#transaction-block"
+                class="cursor-pointer"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="green" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </a>           
+        </div>
         {% if filter.qs %}
             <table class="table">
                 <thead class="text-xs text-white uppercase border-b border-white">

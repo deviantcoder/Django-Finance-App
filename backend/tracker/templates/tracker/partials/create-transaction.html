@@ -1,0 +1,28 @@
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6">
+    <h1 class="text-3xl font-semibold text-white mb-6">Create Transaction</h1>
+    <form hx-post="{% url 'create-transaction' %}">
+        <div class="mb-4">
+            {{ form.type|add_label_class:"block mb-1 text-white font-medium" }}
+            {% render_field form.type class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+        </div>
+        <div class="mb-4">
+            {{ form.amount|add_label_class:"block mb-1 text-white font-medium" }}
+            {% render_field form.amount class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+        </div>
+        <div class="mb-4">
+            {{ form.date|add_label_class:"block mb-1 text-white font-medium" }}
+            {% render_field form.date class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+        </div>
+        <div class="mb-4">
+            {{ form.category|add_label_class:"block mb-1 text-white font-medium" }}
+            {% render_field form.category class="text-green-500 border-gray-300 rounded focus:ring-green-500" %}
+        </div>
+        <button type="submit" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow">
+            Add
+        </button>
+    </form>
+</div>
+{% endblock content %}
