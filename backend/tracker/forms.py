@@ -26,3 +26,4 @@ class TransactionForm(forms.ModelForm):
 
         if amount <= 0:
             raise forms.ValidationError('Amount must be a positive number')
+        return amount

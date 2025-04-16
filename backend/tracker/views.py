@@ -37,7 +37,7 @@ def transactions_list(request):
 
 @login_required
 def create_transaction(request):
-    if request.htmx:
+    if request.method == 'POST':
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
