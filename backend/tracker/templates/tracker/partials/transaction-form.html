@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+
+<div class="mb-4">
+    {{ form.type|add_label_class:"block mb-1 text-white font-medium" }}
+    {% render_field form.type class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+</div>
+<div class="mb-4">
+    {{ form.amount|add_label_class:"block mb-1 text-white font-medium" }}
+    {% render_field form.amount class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+    {% for error in form.amount.errors %}
+        <p class="text-red-400 mt-1">{{ error }}</p>
+    {% endfor %}
+</div>
+<div class="mb-4">
+    {{ form.date|add_label_class:"block mb-1 text-white font-medium" }}
+    {% render_field form.date class="input w-full px-4 py-2 rounded-lg border border-zinc-600 bg-zinc-700 text-white" %}
+</div>
+<div class="mb-4">
+    {{ form.category|add_label_class:"block mb-1 text-white font-medium" }}
+    {% render_field form.category class="text-green-500 border-gray-300 rounded focus:ring-green-500" %}
+</div>
