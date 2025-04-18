@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
+from django.conf import settings
 
 from .models import Transaction
 from .filters import TransactionFilter
@@ -15,16 +17,20 @@ def index(request):
 
 @login_required
 def transactions_list(request):
-    transactions_filter = TransactionFilter(
+    transaction_filter = TransactionFilter(
         request.GET,
         queryset=Transaction.objects.filter(user=request.user).select_related('category')
     )
 
-    total_income = transactions_filter.qs.get_total_income()
-    total_expenses = transactions_filter.qs.get_total_expenses()
+    paginator = Paginator(transaction_filter.qs, settings.PAGE_SIZE)
+    transaction_page = paginator.page(1)
+
+    total_income = transaction_filter.qs.get_total_income()
+    total_expenses = transaction_filter.qs.get_total_expenses()
 
     context = {
-        'filter': transactions_filter,
+        'transactions': transaction_page,
+        'filter': transaction_filter,
         'total_income': total_income,
         'total_expenses': total_expenses,
         'net_income': total_income - total_expenses,
@@ -34,6 +40,24 @@ def transactions_list(request):
         return render(request, 'tracker/partials/transactions-container.html', context)
 
     return render(request, 'tracker/transactions-list.html', context)
+
+
+@login_required
+def get_transactions(request):
+    page = request.GET.get('page', 1)
+
+    transaction_filter = TransactionFilter(
+        request.GET,
+        queryset=Transaction.objects.filter(user=request.user).select_related('category')
+    )
+
+    paginator = Paginator(transaction_filter.qs, settings.PAGE_SIZE)
+
+    context = {
+        'transactions': paginator.page(page)
+    }
+
+    return render(request, 'tracker/partials/transactions-container.html#transaction_list', context)
 
 
 @login_required
