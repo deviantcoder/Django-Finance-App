@@ -58,6 +58,7 @@
                                 hx-trigger="revealed"
                                 hx-swap="afterend"
                                 hx-include="#filterform"
+                                hx-indicator="#spinner"
                             >
                             {% else %}
                             <tr>
@@ -129,3 +130,4 @@
         </form>
     </div>
 </div>
+<span id="spinner" class="loading loading-dots w-15 h-15 htmx-indicator"></span>
