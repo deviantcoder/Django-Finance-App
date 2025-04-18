@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 from .models import Transaction
 from .filters import TransactionFilter
@@ -89,3 +90,16 @@ def update_transaction(request, pk):
     }
 
     return render(request, 'tracker/partials/update-transaction.html', context)
+
+
+@login_required
+@require_http_methods(['DELETE'])
+def delete_transaction(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk, user=request.user)
+    transaction.delete()
+
+    context = {
+        'message': f'Transaction of {transaction.amount} on {transaction.date} was deleted!'
+    }
+
+    return render(request, 'tracker/partials/transaction-success.html', context)
