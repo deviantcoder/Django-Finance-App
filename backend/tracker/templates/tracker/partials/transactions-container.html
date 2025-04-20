@@ -102,6 +102,9 @@
                 No transactions found
             </p>
         {% endif %}
+        <div class="flex items-center justify-center">
+            <span id="spinner" class="loading loading-dots w-12 h-12 htmx-indicator"></span>
+        </div>
     </div>
     <div class="col-span-1">
         <form hx-get="{% url 'transactions-list' %}"
@@ -130,4 +133,3 @@
         </form>
     </div>
 </div>
-<span id="spinner" class="loading loading-dots w-15 h-15 htmx-indicator"></span>

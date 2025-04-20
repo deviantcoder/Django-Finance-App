@@ -11,4 +11,6 @@ urlpatterns = [
     path('transactions/create/', views.create_transaction, name='create-transaction'),
     path('transactions/<int:pk>/update/', views.update_transaction, name='update-transaction'),
     path('transactions/<int:pk>/delete/', views.delete_transaction, name='delete-transaction'),
+
+    path('transactions/charts/', views.transaction_charts, name='transactions-charts'),
 ]
