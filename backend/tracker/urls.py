@@ -13,4 +13,6 @@ urlpatterns = [
     path('transactions/<int:pk>/delete/', views.delete_transaction, name='delete-transaction'),
 
     path('transactions/charts/', views.transaction_charts, name='transactions-charts'),
+
+    path('transactins/export/', views.export, name='export'),
 ]
