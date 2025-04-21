@@ -13,6 +13,8 @@ from .charting import plot_income_expenses_bar_chart, plot_category_pie_chart
 
 from django_htmx.http import retarget
 
+from tablib import Dataset
+
 
 def index(request):
     return render(request, 'tracker/index.html')
@@ -174,3 +176,33 @@ def export(request):
 
     return response
 
+
+@login_required
+def import_transactions(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+
+        resource = TransactionResource()
+        dataset = Dataset()
+
+        dataset.load(file.read().decode(), format='csv')
+
+        result = resource.import_data(dataset, user=request.user, dry_run=True)
+
+        for row in result:
+            for error in row.errors:
+                print(error)
+
+        if not result.has_errors():
+            resource.import_data(dataset, user=request.user, dry_run=False)
+            context = {
+                'message': f'{len(dataset)} transactions were uploaded successfully'
+            }
+        else:
+            context = {
+                'message': 'An error occured during the import process'
+            }
+        
+        return render(request, 'tracker/partials/transaction-success.html', context)
+
+    return render(request, 'tracker/partials/import-transaction.html')

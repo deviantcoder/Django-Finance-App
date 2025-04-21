@@ -19,3 +19,12 @@ class TransactionResource(resources.ModelResource):
             'date',
             'category',
         )
+        import_id_fields = (
+            'amount',
+            'type',
+            'date',
+            'category',
+        )
+
+    def after_init_instance(self, instance, new, row, **kwargs):
+        instance.user = kwargs.get('user')
